@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const config = require('./config/config');
 const authRoutes = require('./routes/authRoutes');
 const jitsiRoutes = require('./routes/jitsiRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 // Routes
 app.use('/auth', authRoutes);
 app.use('/api', jitsiRoutes);
+app.use('/api', userRoutes);
 
 // Connect to MongoDB
 mongoose.connect(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
