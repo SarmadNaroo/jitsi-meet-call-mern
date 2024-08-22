@@ -52,7 +52,7 @@ exports.login = async (req, res) => {
 
         // Generate a JWT token
         const token = jwt.encode(
-            { id: user._id, username: user.username },
+            { userId: user._id, username: user.username },
             config.jwtSecret
         );
 
@@ -60,7 +60,13 @@ exports.login = async (req, res) => {
         user.status = 'online';
         await user.save();
 
-        res.json({ token, username: user.username, email: user.email, status: user.status });
+        res.json({
+            token,
+            userId: user._id, // Send userId along with other user details
+            username: user.username,
+            email: user.email,
+            status: user.status
+        });
     } catch (error) {
         res.status(500).send('Server Error');
     }
